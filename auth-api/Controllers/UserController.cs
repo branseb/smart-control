@@ -1,8 +1,6 @@
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 [ApiController]
@@ -32,6 +30,6 @@ public class UserController : ControllerBase
 		settings.Audience = new List<string>() { "13195522899-8f1dobdejs29mbk5vgto74klhmb320ro.apps.googleusercontent.com" };
 
 		GoogleJsonWebSignature.Payload payload = GoogleJsonWebSignature.ValidateAsync(data.IdToken, settings).Result;
-		return Ok(new { AuthToken = _jwtGenerator.CreateUserAuthToken(payload.Email) });
+		return Ok(new { AuthToken = _jwtGenerator.CreateUserAuthToken(payload.Email, payload.Picture) });
 	}
 }

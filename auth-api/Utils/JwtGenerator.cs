@@ -14,7 +14,7 @@ public class JwtGenerator
 		_key = new RsaSecurityKey(privateRSA);
 	}
 
-	public string CreateUserAuthToken(string userId)
+	public string CreateUserAuthToken(string email, string picture)
 	{
 		var tokenHandler = new JwtSecurityTokenHandler();
 		var tokenDescriptor = new SecurityTokenDescriptor
@@ -23,7 +23,8 @@ public class JwtGenerator
 			Issuer = "AuthService",
 			Subject = new ClaimsIdentity(new Claim[]
 			{
-							new Claim(ClaimTypes.Sid, userId.ToString())
+				new Claim("picture", picture.ToString()),
+				new Claim(ClaimTypes.Email, email.ToString())
 			}),
 			Expires = DateTime.UtcNow.AddMinutes(60),
 			SigningCredentials = new SigningCredentials(_key, SecurityAlgorithms.RsaSha256)
