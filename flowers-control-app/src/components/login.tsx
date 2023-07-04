@@ -1,21 +1,19 @@
-import { Button } from "@mui/material";
-import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import { useEffect, useState } from "react";
+import { config } from "../config";
 
 export const Login = () => {
 	const [user, setUser] = useState<any>();
-	const [tokenResponse, setTokenResponse] = useState<TokenResponse>();
-
-	const login = useGoogleLogin({
-		onSuccess: setTokenResponse,
-		onError: (error) => console.log('Login Failed:', error),
-	});
+	const [tokenResponse, setTokenResponse] = useState<CredentialResponse>();
 
 	useEffect(() => {
-		if (tokenResponse)
-			fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenResponse.access_token}`)
+		if (tokenResponse) {
+			const body = JSON.stringify({ idToken: tokenResponse.credential });
+			const headers = { "Content-Type": "application/json" };
+			fetch(`${config.api}User/authenticate`, { method: 'POST', body, headers })
 				.then(resp => resp.json())
-				.then(resp => setUser(resp))
+				.then(setUser)
+		}
 	}, [tokenResponse]);
 
 	if (user)
@@ -24,6 +22,6 @@ export const Login = () => {
 		)
 
 	return (
-		<Button onClick={() => login()} color="inherit">LOGIN</Button>
+		<GoogleLogin onSuccess={setTokenResponse} />
 	)
 };

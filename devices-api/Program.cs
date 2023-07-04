@@ -4,13 +4,13 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://127.0.0.1:5173")
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
+	options.AddPolicy(name: MyAllowSpecificOrigins,
+					  policy =>
+					  {
+						  policy.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173")
+								.AllowAnyHeader()
+								.AllowAnyMethod();
+					  });
 });
 
 // Add services to the container.
@@ -26,8 +26,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	app.UseSwagger();
+	app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
