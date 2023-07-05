@@ -21,13 +21,15 @@ public class DevicesController : ControllerBase
 	[HttpGet]
 	public IEnumerable<DeviceItem> Get()
 	{
-		return _devicesService.GetDevices();
+		var userId = User.FindFirst(JwtRegisteredClaimNames.Email)?.Value ?? "";
+		return _devicesService.GetDevices(userId);
 	}
 
 	[HttpGet("detail")]
 	public DeviceDetail Get(string id)
 	{
-		return _devicesService.GetDeviceDetail(id);
+		var userId = User.FindFirst(JwtRegisteredClaimNames.Email)?.Value ?? "";
+		return _devicesService.GetDeviceDetail(id, userId);
 	}
 
 	[HttpGet("user")]

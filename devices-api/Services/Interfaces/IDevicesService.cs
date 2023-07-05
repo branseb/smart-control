@@ -1,4 +1,4 @@
 public interface IDevicesService {
-	IEnumerable<DeviceItem> GetDevices();
-	DeviceDetail GetDeviceDetail(string id);
+	IEnumerable<DeviceItem> GetDevices(string userId);
+	DeviceDetail GetDeviceDetail(string id, string userId);
 }

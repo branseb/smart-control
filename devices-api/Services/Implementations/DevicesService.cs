@@ -1,6 +1,12 @@
 using System.Web;
 public class DevicesService : IDevicesService
 {
+	private List<(string, string)> _assignedDevices = new List<(string, string)>() {
+		("branseb@gmail.com", "000001"),
+		("branseb@gmail.com", "000003"),
+		("parsoerik@gmail.com", "000001"),
+	};
+
 	private List<DeviceDetail> _devices = new List<DeviceDetail>() {
 		new DeviceDetail() {
 			Id = "000001",
@@ -66,18 +72,22 @@ public class DevicesService : IDevicesService
 		}
 	};
 
-	public DeviceDetail GetDeviceDetail(string id)
+	public DeviceDetail GetDeviceDetail(string id, string userId)
 	{
 		var device = _devices.FirstOrDefault(d => d.Id == id);
 
 		if (device == null)
 			throw new HttpResponseException(404, "Device detail not found");
 
+		var hasAccess = _assignedDevices.Exists(pair => pair.Item1 == userId && pair.Item2 == device.Id);
+		if (!hasAccess)
+			throw new HttpResponseException(403, "You have no access to this device");
+
 		return device;
 	}
 
-	public IEnumerable<DeviceItem> GetDevices()
+	public IEnumerable<DeviceItem> GetDevices(string userId)
 	{
-		return _devices;
+		return _devices.Where(d => _assignedDevices.Exists(pair => pair.Item1 == userId && d.Id == pair.Item2));
 	}
 }

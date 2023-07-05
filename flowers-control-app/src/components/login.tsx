@@ -15,7 +15,6 @@ export const Login = () => {
 		}
 	}, [tokenResponse]);
 
-
 	if (user)
 		return (
 			<img src={user.picture} height={36} style={{ borderRadius: '50%' }} />
