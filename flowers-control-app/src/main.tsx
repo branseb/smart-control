@@ -24,10 +24,14 @@ const router = createBrowserRouter([
 				path: 'detail/:id',
 				element: <DetailPage />
 			},
-      {
-        path: '*',
-        element: <Navigate to={'/home'} />
-      }
+			{
+				path: '*',
+				element: <Navigate to={'/home'} />,
+			},
+			{
+				path: '',
+				element: <Navigate to={'/home'} />,
+			}
 		]
 	},
 	{
@@ -38,12 +42,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-    <ThemeProvider theme={theme}>
-		<GoogleOAuthProvider clientId={config.clientId}>
-      <CssBaseline>
-			<RouterProvider router={router} />
-      </CssBaseline>
-		</GoogleOAuthProvider>
-    </ThemeProvider>
+		<ThemeProvider theme={theme}>
+			<GoogleOAuthProvider clientId={config.clientId}>
+				<CssBaseline>
+					<RouterProvider router={router} />
+				</CssBaseline>
+			</GoogleOAuthProvider>
+		</ThemeProvider>
 	</React.StrictMode>,
 )

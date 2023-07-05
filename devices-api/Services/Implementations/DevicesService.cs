@@ -18,21 +18,23 @@ public class DevicesService : IDevicesService
 					Name = "Avocado",
 					SensorType = SensorType.FlowerHumiditySensor,
 					Status = SensorStatus.Online,
-					Data = new { Humidity= 90 }
+					Data = new { Humidity= 90 },
+					Warnings = new List<string> () { SensorWarnings.HUMIDITY_HIGH }
 				},
 				new Sensor() {
 					Id = "000001-02",
 					Name = "Cacti",
 					SensorType = SensorType.FlowerHumiditySensor,
 					Status = SensorStatus.Online,
-					Data = new { Humidity = 2 }
+					Data = new { Humidity = 2 },
+					Warnings = new List<string> () { SensorWarnings.HUMIDITY_LOW }
 				},
 				new Sensor() {
 					Id = "000001-03",
 					Name = "Aloe",
 					SensorType = SensorType.FlowerHumiditySensor,
 					Status = SensorStatus.Offline,
-					Data = new { Humidity = 20 }
+					Data = new { Humidity = 20 },
 				}
 			}
 		},
@@ -88,6 +90,20 @@ public class DevicesService : IDevicesService
 
 	public IEnumerable<DeviceItem> GetDevices(string userId)
 	{
-		return _devices.Where(d => _assignedDevices.Exists(pair => pair.Item1 == userId && d.Id == pair.Item2));
+		return _devices
+			.Where(d => _assignedDevices.Exists(pair => pair.Item1 == userId && d.Id == pair.Item2))
+			.Select(DeviceDetailToDeviceItem);
 	}
+
+	private DeviceItem DeviceDetailToDeviceItem(DeviceDetail deviceDetail) =>
+		new DeviceItem()
+		{
+			Id = deviceDetail.Id,
+			Name = deviceDetail.Name,
+			Status = deviceDetail.Status,
+			Warnings = MergeSensorWarnings(deviceDetail)
+		};
+
+	private static IEnumerable<string> MergeSensorWarnings(DeviceDetail deviceDetail) =>
+		deviceDetail.Sensors?.SelectMany(s => s.Warnings ?? Enumerable.Empty<string>()) ?? Enumerable.Empty<string>();
 }
