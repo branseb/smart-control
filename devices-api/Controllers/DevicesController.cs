@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,7 @@ public class DevicesController : ControllerBase
 	{
 		return Ok(new { 
 			Picture = User.FindFirst("picture")?.Value,
-			Email = User.FindFirst(ClaimTypes.Email)?.Value
+			Email = User.FindFirst(JwtRegisteredClaimNames.Email)?.Value
 		});
 	}
 }

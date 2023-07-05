@@ -16,18 +16,21 @@ builder.Services.AddCors(options =>
 					  });
 });
 
-builder.Services.AddAuthentication(options =>
-			{
-				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-			}).AddJwtBearer();
+builder.Services
+	.AddAuthentication(options =>
+	{
+		options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+		options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+		options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	}).AddJwtBearer(o => {
+		o.SecurityTokenValidators.Clear();
+		o.SecurityTokenValidators.Add(new GoogleTokenValidator());
+	});
 
 // Add services to the container.
 
 // Add services to the container.
 builder.Services.AddSingleton<IDevicesService, DevicesService>();
-builder.Services.AddTransient<IConfigureOptions<JwtBearerOptions>, ConfigureJwtBearerOptions>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
