@@ -32,7 +32,6 @@ export const CircularWithLabel = (props:{value:number}) => {
                             <Typography
                                 variant="caption"
                                 component="div"
-                                color="text.secondary"
                             >{`${props.value}%`}</Typography>
                         </Box>
                     </Box></div>

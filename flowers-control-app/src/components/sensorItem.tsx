@@ -10,8 +10,7 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 10
-
+        padding: 10,
     },
     content: {
         display: 'flex',
@@ -24,6 +23,11 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
         display: 'flex',
         flexDirection: 'column',
         justifyItems: 'center'
+    },
+    paper:{
+        background:'#37373775',
+        boxShadow: '0px 5px 22px 5px rgba(255, 255, 255, 0.15) inset',
+        margin:10
     }
 
 }))
@@ -37,7 +41,7 @@ export const SensorItem = (props: SensorItemTypeProps) => {
     const { sensor } = props
 
     return (
-        <Paper elevation={4}>
+        <Paper elevation={4}  className={classes.paper}>
             <div className={classes.root}>
                 <div className={classes.content}>
                     <h1>{sensor.name}</h1>

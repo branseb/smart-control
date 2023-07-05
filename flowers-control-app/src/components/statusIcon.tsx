@@ -8,6 +8,7 @@ const useStyles = makeStyles({name:'status-icon'})(()=>({
     root:{
         display:'flex',
         alignItems:'center',
+        width:25
     }
 }))
 
@@ -21,7 +22,7 @@ export const StatusIcon = (props:StatusIconTypeProps) => {
 
     return(
         <div className={classes.root}>
-        <CircleIcon sx={{color:(props.status)?green[900]:red[900]}}/>
+        <CircleIcon sx={{fontSize:26}} color={props.status?'secondary':'error'}/>
         </div>
         
     )
