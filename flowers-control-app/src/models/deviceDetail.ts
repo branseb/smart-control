@@ -1,8 +1,11 @@
-import { DeviceItemType } from "./deviceItem";
+import { Status } from "./deviceItem";
 
 
-export type DeviceDetailType = DeviceItemType & {
-    sensors: Sensor[]
+export type DeviceDetailType = {
+    sensors: Sensor[];
+	id: string,
+    name: string,
+    status: Status
 }
 
 export type Sensor = {
@@ -16,6 +19,8 @@ export type Sensor = {
     status: SensorStatus,
 
     data: SensorDataType,
+
+	warnings: string[]
 };
 
 export type SensorDataType = {
