@@ -1,15 +1,6 @@
+import { CredentialResponse } from "@react-oauth/google";
 import { atom } from "jotai";
 
-export type User = {
-    id:string,
-    name:string,
-    password:string
-};
+export const loginUserAtom = atom<any>(undefined)
 
-const unloginUser:User = {
-    id:'log',
-    name:'',
-    password:''
-} 
-
-export const  loginUserAtom = atom<User>(unloginUser)
+export const tokenResponseAtom = atom<CredentialResponse>({})

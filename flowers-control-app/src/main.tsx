@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App.tsx'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
 import { ErrorPage } from './pages/errorPage.tsx'
 import { DetailPage } from './pages/detailPage.tsx'
 import { HomePage } from './pages/homePage.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { config } from './config.ts'
+import { config } from './config.ts';
+import { theme } from './theme.ts'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 
 const router = createBrowserRouter([
 	{
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
 			{
 				path: 'detail/:id',
 				element: <DetailPage />
+			},
+			{
+				path: '*',
+				element: <Navigate to={'/home'} />,
+			},
+			{
+				path: '',
+				element: <Navigate to={'/home'} />,
 			}
 		]
 	},
@@ -32,8 +42,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<GoogleOAuthProvider clientId={config.clientId}>
-			<RouterProvider router={router} />
-		</GoogleOAuthProvider>
+		<ThemeProvider theme={theme}>
+			<GoogleOAuthProvider clientId={config.clientId}>
+				<CssBaseline>
+					<RouterProvider router={router} />
+				</CssBaseline>
+			</GoogleOAuthProvider>
+		</ThemeProvider>
 	</React.StrictMode>,
 )
