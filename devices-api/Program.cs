@@ -1,5 +1,8 @@
+using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,15 +22,50 @@ builder.Services.AddCors(options =>
 builder.Services
 	.AddAuthentication(options =>
 	{
-		options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-		options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-		options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-	}).AddJwtBearer(o => {
+		// options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+		// options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+		// options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+	})
+	.AddJwtBearer("google", o =>
+	{
 		o.SecurityTokenValidators.Clear();
 		o.SecurityTokenValidators.Add(new GoogleTokenValidator());
+	})
+	.AddJwtBearer("asymmetric", options =>
+	{
+		SecurityKey rsa = builder.Services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
+		options.IncludeErrorDetails = true;
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			IssuerSigningKey = rsa,
+			ValidAudience = "jwt-test-app",
+			ValidIssuer = "jwt-test-app",
+			RequireSignedTokens = true,
+			RequireExpirationTime = false,
+			ValidateLifetime = false,
+			ValidateAudience = true,
+			ValidateIssuer = true,
+		};
 	});
 
-// Add services to the container.
+builder.Services
+    .AddAuthorization(options =>
+    {
+        options.DefaultPolicy = new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .AddAuthenticationSchemes("google", "asymmetric")
+            .Build();
+    });
+
+builder.Services.AddSingleton<RsaSecurityKey>(provider =>
+{
+	RSA rsa = RSA.Create();
+	rsa.ImportRSAPublicKey(
+		source: Convert.FromBase64String(builder.Configuration["Jwt:Asymmetric:PublicKey"]),
+		bytesRead: out int _
+	);
+	return new RsaSecurityKey(rsa);
+});
 
 // Add services to the container.
 builder.Services.AddSingleton<IDevicesService, DevicesService>();
