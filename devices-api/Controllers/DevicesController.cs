@@ -1,10 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
-[Microsoft.AspNetCore.Authorization.Authorize]
+[Authorize(AuthenticationSchemes = "google")]
 [HttpResponseExceptionFilter]
 [Route("[controller]")]
 public class DevicesController : ControllerBase
@@ -35,7 +34,8 @@ public class DevicesController : ControllerBase
 	[HttpGet("user")]
 	public ActionResult GetUser()
 	{
-		return Ok(new { 
+		return Ok(new
+		{
 			Picture = User.FindFirst("picture")?.Value,
 			Email = User.FindFirst(JwtRegisteredClaimNames.Email)?.Value
 		});

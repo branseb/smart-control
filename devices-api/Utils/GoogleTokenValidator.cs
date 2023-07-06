@@ -24,8 +24,6 @@ public class GoogleTokenValidator : ISecurityTokenValidator
 
 	public ClaimsPrincipal ValidateToken(string securityToken, TokenValidationParameters validationParameters, out SecurityToken validatedToken)
 	{
-		validatedToken = null;
-
 		GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings();
 		settings.Audience = new List<string>() { "13195522899-8f1dobdejs29mbk5vgto74klhmb320ro.apps.googleusercontent.com" };
 		var payload = GoogleJsonWebSignature.ValidateAsync(securityToken, settings).Result;
