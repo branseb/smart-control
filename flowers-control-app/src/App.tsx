@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { makeStyles } from "tss-react/mui";
-import image from '../public/background.png';
+import image from '../public/background-exposure.jpg';
 import { Login } from "./components/login";
 
 const useStyles = makeStyles({ name: 'app' })(() => ({

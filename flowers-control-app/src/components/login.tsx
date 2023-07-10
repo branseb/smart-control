@@ -81,6 +81,6 @@ export const Login = () => {
 		)
 
 	return (
-		<GoogleLogin onSuccess={setTokenResponse} useOneTap={true} theme="outline" type="icon" />
+		<GoogleLogin onSuccess={setTokenResponse} auto_select useOneTap={true} theme="outline"  type="icon" />
 	)
 };

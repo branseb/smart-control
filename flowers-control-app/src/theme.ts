@@ -10,6 +10,6 @@ export const theme = createTheme({
         },
         error:{main:'#BD472D'},
         warning:{main:'#DBA844'},
-        text:{primary:'#fff'}
+        text:{primary:'#ccc'}
     }
 })

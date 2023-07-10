@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import { Sensor } from "../models/deviceDetail";
 import { CircularWithLabel } from "./circularWithLabel";
@@ -25,9 +25,15 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
         justifyItems: 'center'
     },
     paper:{
-        background:'#37373775',
-        boxShadow: '0px 5px 22px 5px rgba(255, 255, 255, 0.15) inset',
-        margin:10
+        background: 'rgba(55, 55, 55, 0.85)',
+        boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
+        margin: '31px 21px',
+        display: 'flex',
+        flexDirection: 'row',
+        padding: '5px',
+        cursor: 'pointer',
+        height: 162,
+        borderRadius: 10,
     }
 
 }))
@@ -50,7 +56,7 @@ export const SensorItem = (props: SensorItemTypeProps) => {
                 </div>
                 {sensor.data.humidity &&
                     <div className={classes.sensor}>
-                        <h2>{sensor.sensorType === 0 && 'Humidity sensor'}</h2>
+                        <Typography>{sensor.sensorType === 0 && 'Humidity sensor'}</Typography>
                         <CircularWithLabel value={sensor.data.humidity} />
                     </div>}
             </div>

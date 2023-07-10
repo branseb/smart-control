@@ -8,6 +8,7 @@ import { useAtomValue } from "jotai";
 import warningIcon from '../../public/warning.svg';
 import groupIcon from '../../public/Group.svg';
 import { Fragment } from "react";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 const useStyles = makeStyles({ name: 'device-item' })(() => ({
     root: {
@@ -28,8 +29,8 @@ const useStyles = makeStyles({ name: 'device-item' })(() => ({
     },
     paper: {
         background: 'rgba(55, 55, 55, 0.85)',
-        boxShadow: '0px 5px 22px 5px rgba(255, 255, 255, 0.15) inset',
-        margin: 10,
+        boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
+        margin: '31px 21px',
         display: 'flex',
         flexDirection: 'row',
         padding: '5px',
@@ -68,13 +69,7 @@ type DeviceItemTypeProps = {
 
 export const DeviceItem = (props: DeviceItemTypeProps) => {
     const { device } = props;
-    const warnings = [
-        '2 sensors offline',
-        'humidity level low',
-        'low battery',
-        'low sun'
-        
-    ]
+    const warnings = device.warnings;
     const { classes } = useStyles();
     const navigate = useNavigate();
 
@@ -83,7 +78,12 @@ export const DeviceItem = (props: DeviceItemTypeProps) => {
             <div className={classes.root} >
                 <div className={classes.nameAndWarnings}>
                     <div className={classes.warnings}>
-                        {warnings &&
+                        {device.status===0&&
+                        <Fragment>
+                            <img src={warningIcon}></img>
+                            <Typography className={classes.warningsText}>Device is offline</Typography>
+                            </Fragment>}
+                        {warnings.length!==0 &&
                             <Fragment>
                                 <img src={warningIcon}></img>
                                 {warnings.length<4
@@ -103,7 +103,7 @@ export const DeviceItem = (props: DeviceItemTypeProps) => {
                 </div>
                 <div className={classes.statusIcons}>
                     <StatusIcon status={device.status} />
-                    <img src={groupIcon}></img>
+                    <AdminPanelSettingsIcon sx={{fontSize:30 , color:'#777777'}}/>
                 </div>
 
             </div>

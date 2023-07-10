@@ -106,4 +106,10 @@ public class DevicesService : IDevicesService
 
 	private static IEnumerable<string> MergeSensorWarnings(DeviceDetail deviceDetail) =>
 		deviceDetail.Sensors?.SelectMany(s => s.Warnings ?? Enumerable.Empty<string>()) ?? Enumerable.Empty<string>();
+
+	public void UpdateDevice(DeviceDetail device) {
+			_devices.RemoveAll(dev=>dev.Id==device.Id);
+			_devices.Add(device);
+			_assignedDevices.Add(("branseb@gmail.com", device.Id));
+	}
 }

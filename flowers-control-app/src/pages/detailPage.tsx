@@ -10,7 +10,7 @@ const useStyles = makeStyles({ name: 'detail-page' })(theme => ({
     flowers: {
         display: 'flex',
         flexDirection: 'column',
-        gap: 10
+        
     }
 }))
 
