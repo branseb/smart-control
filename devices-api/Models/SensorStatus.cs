@@ -1,4 +1,5 @@
-public enum SensorStatus {
-	Offline,
-	Online
+public enum SensorStatus
+{
+    Offline,
+    Online
 }

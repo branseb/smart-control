@@ -35,12 +35,12 @@ export const theme = createTheme({
                 }
             }
         },
-        MuiDialog:{
-            styleOverrides:{
-                paper:{
-                    borderRadius:"10px"
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    borderRadius: "10px"
                 }
             }
-        }        
+        }
     }
 })

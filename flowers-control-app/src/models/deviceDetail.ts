@@ -11,20 +11,12 @@ export type DeviceDetailType = {
 }
 
 export type Sensor = {
-
     id: string,
-
     name: string,
-
     sensorType: SensorType,
-
     status: SensorStatus,
-
     data: SensorDataType,
-
     warnings: string[],
-
-
 };
 
 export type SensorDataType = {

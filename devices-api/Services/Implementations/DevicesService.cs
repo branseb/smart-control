@@ -4,13 +4,9 @@ public class DevicesService : IDevicesService
     private List<(string, string, RoleStatus)> _assignedDevices = new List<(string, string, RoleStatus)>() {
         ("branseb@gmail.com", "000001" ,RoleStatus.Admin),
         ("branseb@gmail.com", "000003",RoleStatus.Guest),
-        ("parsoerik@gmail.com", "000001",RoleStatus.Admin),
     };
 
-    private List<(string id, string pin)> _pairingDevices = new List<(string, string)>()
-    {
-
-    };
+    private List<(string id, string pin)> _pairingDevices = new List<(string, string)>();
 
     private List<DeviceDetail> _devices = new List<DeviceDetail>() {
         new DeviceDetail() {
@@ -78,7 +74,6 @@ public class DevicesService : IDevicesService
             Sensors = new List<Sensor>() { }
         }
     };
-
     public DeviceDetail GetDeviceDetail(string id, string userId)
     {
         var device = _devices.FirstOrDefault(d => d.Id == id);
@@ -94,12 +89,12 @@ public class DevicesService : IDevicesService
         .Where(a => a.Item2 == id && a.Item3 == RoleStatus.Admin)
         .Select(a => a.Item1)
         .ToList();
-        
+
 
         device.Guests = _assignedDevices
-        .Where(a => a.Item2 == id && a.Item3 ==RoleStatus.Guest)
-        .Select(a=>a.Item1)
-        .ToList(); 
+        .Where(a => a.Item2 == id && a.Item3 == RoleStatus.Guest)
+        .Select(a => a.Item1)
+        .ToList();
         return device;
     }
 
@@ -167,7 +162,7 @@ public class DevicesService : IDevicesService
         if (userInDeviceExist)
         {
             _assignedDevices.RemoveAll(a => a.Item1 == emailToAdd && a.Item2 == deviceId);
-         }
+        }
         _assignedDevices.Add((emailToAdd, deviceId, roleStatus));
 
     }

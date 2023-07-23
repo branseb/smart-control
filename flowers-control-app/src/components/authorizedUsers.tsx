@@ -64,7 +64,6 @@ export const AuthorizedUsers = (props: AuthorizedUsersTypeProps) => {
                         <Avatar key={i} className={classes.adminAvatar} >
                             {admin.toUpperCase()[0]}
                         </Avatar>)}
-
                 <img
                     src={loginUser.picture}
                     height={36}

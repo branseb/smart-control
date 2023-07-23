@@ -1,7 +1,7 @@
 import { Box, CircularProgress, Paper, Typography } from "@mui/material"
 import { makeStyles } from "tss-react/mui"
 
-const useStyles = makeStyles({ name: 'flower-item' })(theme => ({
+const useStyles = makeStyles({ name: 'flower-item' })(() => ({
     root: {
         display: 'flex',
         flexDirection: 'row',
@@ -16,8 +16,6 @@ type FlowerItemTypeProps = {
         name: string,
         humidity: number
     }
-
-
 }
 
 export const FlowerItem = (props: FlowerItemTypeProps) => {

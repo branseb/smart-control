@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { App } from './App.tsx'
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'
@@ -41,11 +40,11 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-		<ThemeProvider theme={theme}>
-			<GoogleOAuthProvider clientId={config.clientId}>
-				<CssBaseline>
-					<RouterProvider router={router} />
-				</CssBaseline>
-			</GoogleOAuthProvider>
-		</ThemeProvider>
+	<ThemeProvider theme={theme}>
+		<GoogleOAuthProvider clientId={config.clientId}>
+			<CssBaseline>
+				<RouterProvider router={router} />
+			</CssBaseline>
+		</GoogleOAuthProvider>
+	</ThemeProvider>
 )

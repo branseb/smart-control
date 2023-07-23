@@ -77,7 +77,6 @@ static class Program
             {
                 Console.WriteLine($"Unable to parse'{filetext}'");
             }
-
         }
         else
         {

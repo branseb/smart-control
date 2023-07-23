@@ -1,8 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System;
-using System.Text.Json;
-using System.IO;
-using System.Net;
+﻿using System.Text.Json;
 using System.Net.Http.Headers;
 using System.Device.Gpio;
 
@@ -51,7 +47,8 @@ internal class Program
 
             System.Console.WriteLine("done");
 
-            controler.RegisterCallbackForPinValueChangedEvent(button, PinEventTypes.Rising, async (x, y) => {
+            controler.RegisterCallbackForPinValueChangedEvent(button, PinEventTypes.Rising, async (x, y) =>
+            {
                 var newStatus = state.Status == Status.Online ? Status.Offline : Status.Online;
                 controler.Write(greenLED, newStatus == Status.Online ? PinValue.High : PinValue.Low);
                 controler.Write(redLED, newStatus == Status.Offline ? PinValue.High : PinValue.Low);
@@ -65,7 +62,7 @@ internal class Program
             // {
             //     bool click = ((bool)controler.Read(button));
             //     var newStatus = click ? Status.Online : Status.Offline;
-                
+
             //     if (newStatus != state.Status)
             //     {
             //         controler.Write(greenLED, click ? PinValue.High : PinValue.Low);

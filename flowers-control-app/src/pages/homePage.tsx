@@ -14,13 +14,11 @@ const useStyles = makeStyles({ name: 'home-page' })(() => ({
         position: "absolute",
         right: '20px',
         bottom: '15px'
-
-
     }
 }))
 
 export const HomePage = () => {
-    const {devices, fetchData} = useDevices();
+    const { devices, fetchData } = useDevices();
     const loginUser = useAtomValue(loginUserAtom);
     const { classes } = useStyles();
     const [openPairDialog, setOpenPairDialog] = useState<boolean>(false);

@@ -5,11 +5,10 @@ import { tokenResponseAtom } from "../store/loginAtom"
 import { useAtomValue } from "jotai"
 import { config } from "../config"
 
-
 type AddDeviceTypeProps = {
     open: boolean,
     onClose: () => void,
-    onSuccsess:()=>void,
+    onSuccsess: () => void,
 }
 
 const useStyles = makeStyles({ name: 'pair-device-dialog' })(() => ({
@@ -57,14 +56,14 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
     const { classes } = useStyles();
     const [id, setId] = useState<string>('');
     const [pin, setPin] = useState<string>('');
-    const {credential} = useAtomValue(tokenResponseAtom);
+    const { credential } = useAtomValue(tokenResponseAtom);
     const [error, setError] = useState<boolean>(false);
 
     const onPairButtonClick = useCallback(() => {
         const headers = { 'Authorization': 'Bearer ' + credential };
         fetch(`${config.api}Device/pair?id=${id}&pin=${pin}`, { headers, method: 'POST' })
             .then((resp) => {
-                if (resp.status == 200){
+                if (resp.status == 200) {
                     props.onClose();
                     props.onSuccsess();
                 }

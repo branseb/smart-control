@@ -5,8 +5,6 @@ import { DeviceDetailType } from "../models/deviceDetail";
 import { tokenResponseAtom } from "../store/loginAtom";
 import { useAtomValue } from "jotai";
 
-
-
 export const useDevices = () => {
     const [devices, setDevices] = useState<DeviceItemType[]>([]);
     const { credential } = useAtomValue(tokenResponseAtom)
@@ -26,23 +24,23 @@ export const useDevices = () => {
         return () => { clearInterval(timer) }
     }, [credential, fetchData])
 
-    return {devices, fetchData};
+    return { devices, fetchData };
 }
 
 export const useDeviceDetail = (id: string) => {
     const [deviceDetail, setDeviceDetail] = useState<DeviceDetailType>();
-    const {credential} = useAtomValue(tokenResponseAtom)
+    const { credential } = useAtomValue(tokenResponseAtom)
 
-    const fetchData = useCallback(()=>{
-         const headers = { 'Authorization': 'Bearer ' + credential };
+    const fetchData = useCallback(() => {
+        const headers = { 'Authorization': 'Bearer ' + credential };
         fetch(config.api + 'Devices/detail?id=' + id, { headers })
             .then(resp => resp.json())
             .then(resp => setDeviceDetail(resp as DeviceDetailType))
-    },[credential, id]);
+    }, [credential, id]);
 
     useEffect(() => {
-       fetchData();
+        fetchData();
     }, [fetchData])
-    return {deviceDetail , fetchData}
+    return { deviceDetail, fetchData }
 
 }

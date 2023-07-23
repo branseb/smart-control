@@ -24,7 +24,7 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
         flexDirection: 'column',
         justifyItems: 'center'
     },
-    paper:{
+    paper: {
         background: 'rgba(55, 55, 55, 0.85)',
         boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
         marginTop: '31px',
@@ -34,7 +34,6 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
         height: 162,
         borderRadius: 10,
     }
-
 }))
 
 type SensorItemTypeProps = {
@@ -46,11 +45,10 @@ export const SensorItem = (props: SensorItemTypeProps) => {
     const { sensor } = props
 
     return (
-        <Paper elevation={4}  className={classes.paper}>
+        <Paper elevation={4} className={classes.paper}>
             <div className={classes.root}>
                 <div className={classes.content}>
                     <h1>{sensor.name}</h1>
-
                     <StatusIcon status={sensor.status} />
                 </div>
                 {sensor.data.humidity &&

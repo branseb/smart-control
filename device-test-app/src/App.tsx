@@ -14,6 +14,15 @@ type SensorType = {
 function App() {
 
 	const [device, setDevice] = useState<DeviceType>({});
+	const [deviceName, setDeviceName] = useState<string>('');
+	const [deviceStatus, setDeviceStatus] = useState<number>(0);
+	const [sensorName, setSensorName] = useState<string>('');
+	const [sensorType, setSensorType] = useState<number>(0);
+	const [sensorStatus, setSensorStatus] = useState<number>(0)
+	const [sensorWarning, setSensorWarning] = useState<string>('');
+	const [sensorWarnings, setSensorWarnings] = useState<string[]>([]);
+	const [sensorData, setSensorData] = useState<any>({});
+	const [sensors, setSensors,] = useState<SensorType[]>([]);
 
 	const handleFileChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
 		const file = event.target.files?.[0];
@@ -29,21 +38,13 @@ function App() {
 			reader.readAsText(file);
 		}
 	}
-	const [deviceName, setDeviceName] = useState<string>('');
-	const [deviceStatus, setDeviceStatus] = useState<number>(0);
-
-	const [sensorName, setSensorName] = useState<string>('');
-	const [sensorType, setSensorType] = useState<number>(0);
-	const [sensorStatus, setSensorStatus] = useState<number>(0)
-	const [sensorWarning, setSensorWarning] = useState<string>('');
-	const [sensorWarnings, setSensorWarnings] = useState<string[]>([]);
-	const [sensorData, setSensorData] = useState<any>({});
-
-	const [sensors, setSensors,] = useState<SensorType[]>([]);
 
 	const updateDevice = () => {
 		const newDevice: any = {
-			id: device.id, name: deviceName, status: deviceStatus, sensors: sensors
+			id: device.id,
+			name: deviceName,
+			status: deviceStatus,
+			sensors: sensors
 		};
 		const body = JSON.stringify(newDevice);
 		const headers = {
@@ -57,7 +58,7 @@ function App() {
 
 	const startPairing = () => {
 		const headers = { 'Authorization': 'Bearer ' + device.token };
-		fetch(`http://localhost:5104/Device/startPairing?pin=${device.pin}`, { headers, method:'POST' })
+		fetch(`http://localhost:5104/Device/startPairing?pin=${device.pin}`, { headers, method: 'POST' })
 
 	}
 
@@ -89,7 +90,14 @@ function App() {
 					<div>pin: {device.pin}</div>
 					<Button variant='contained' onClick={startPairing}>Pair device</Button>
 
-					<div style={{ display: 'flex', flexDirection: 'column', width: '100%', gap: 10, padding: 5, alignItems: 'center' }}>
+					<div style={{
+						display: 'flex',
+						flexDirection: 'column',
+						width: '100%',
+						gap: 10,
+						padding: 5,
+						alignItems: 'center'
+					}}>
 						<TextField label='Device Name' value={deviceName} onChange={(e) => setDeviceName(e.target.value)}></TextField>
 						<FormControl>
 							<FormLabel>Status</FormLabel>

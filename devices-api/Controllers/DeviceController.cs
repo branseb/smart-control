@@ -1,9 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 [ApiController]
 [HttpResponseExceptionFilter]
@@ -39,38 +37,37 @@ public class DeviceController : ControllerBase
     public IActionResult StartPairing(string pin)
     {
         var id = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        
-		if (id == null)
-			return BadRequest();
+
+        if (id == null)
+            return BadRequest();
 
         _devicesService.StartPairing(pin, id);
         return Ok();
     }
 
-	[HttpPost("pair")]
-	[Authorize(AuthenticationSchemes = "google")]
-	public IActionResult Pair(string id , string pin)
-	{
-		var email = this.User.FindFirst(JwtRegisteredClaimNames.Email)?.Value;
+    [HttpPost("pair")]
+    [Authorize(AuthenticationSchemes = "google")]
+    public IActionResult Pair(string id, string pin)
+    {
+        var email = this.User.FindFirst(JwtRegisteredClaimNames.Email)?.Value;
 
-		if(email == null)
-			return BadRequest();
+        if (email == null)
+            return BadRequest();
 
-		_devicesService.Pair(email,id,pin);
-		return Ok("device paired");
-	}
+        _devicesService.Pair(email, id, pin);
+        return Ok("device paired");
+    }
 
     [HttpPost("addRole")]
     [Authorize(AuthenticationSchemes = "google")]
-
-    public IActionResult AddRoleToDevice(string email , string deviceId , RoleStatus roleStatus)
+    public IActionResult AddRoleToDevice(string email, string deviceId, RoleStatus roleStatus)
     {
         var userEmail = this.User.FindFirst(JwtRegisteredClaimNames.Email)?.Value;
 
-        if(userEmail == null)
-        return BadRequest();
+        if (userEmail == null)
+            return BadRequest();
 
-        _devicesService.AddRoleToDevice(userEmail,email,deviceId,roleStatus);
+        _devicesService.AddRoleToDevice(userEmail, email, deviceId, roleStatus);
         return Ok(" device have a new user");
     }
 }

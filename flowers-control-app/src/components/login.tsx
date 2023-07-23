@@ -1,11 +1,11 @@
-import { Button, Dialog, Popover, Typography } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Popover, Typography } from "@mui/material";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { useAtom } from "jotai";
 import { Fragment, useEffect, useState } from "react";
+import { makeStyles } from "tss-react/mui";
 import { config } from "../config";
 import { loginUserAtom, tokenResponseAtom } from "../store/loginAtom";
-import { makeStyles } from "tss-react/mui";
-import LogoutIcon from '@mui/icons-material/Logout';
 
 const useStyles = makeStyles({ name: 'login' })(theme => ({
 	popoverposition: {
@@ -33,7 +33,6 @@ export const Login = () => {
 	const openUserMenu = Boolean(anchorEl);
 	var popoverId = openUserMenu ? 'simple-popover' : undefined;
 
-
 	useEffect(() => {
 		if (tokenResponse.credential) {
 			const headers = { 'Authorization': 'Bearer ' + tokenResponse.credential };
@@ -60,27 +59,25 @@ export const Login = () => {
 					anchorOrigin={{
 						vertical: 'top',
 						horizontal: 'right',
-					  }}
-					  transformOrigin={{
+					}}
+					transformOrigin={{
 						vertical: 'center',
 						horizontal: 'right',
-					  }}
+					}}
 					onClose={() => setAnchorEl(null)}>
 					<div className={classes.popoverContent}>
 						<Typography>{user.email}</Typography>
-
 						<div
 							className={classes.logoutContent}
 							onClick={() => { setUser(undefined); googleLogout() }}>
 							<Typography>logout</Typography>
 							<LogoutIcon sx={{ color: 'white' }} /></div>
 					</div>
-
 				</Popover>
 			</Fragment>
 		)
 
 	return (
-		<GoogleLogin onSuccess={setTokenResponse} auto_select useOneTap={true} theme="outline"  type="icon" />
+		<GoogleLogin onSuccess={setTokenResponse} auto_select useOneTap={true} theme="outline" type="icon" />
 	)
 };

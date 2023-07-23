@@ -1,7 +1,5 @@
 using System.Security.Cryptography;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,43 +8,43 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy(name: MyAllowSpecificOrigins,
-					  policy =>
-					  {
-						  policy.WithOrigins("http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://localhost:5173")
-								.AllowAnyHeader()
-								.AllowAnyMethod();
-					  });
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://127.0.0.1:5173", "http://127.0.0.1:5174", "http://localhost:5173")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
 });
 
 builder.Services
-	.AddAuthentication(options =>
-	{
-		// options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-		// options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-		// options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-	})
-	.AddJwtBearer("google", o =>
-	{
-		o.SecurityTokenValidators.Clear();
-		o.SecurityTokenValidators.Add(new GoogleTokenValidator());
-	})
-	.AddJwtBearer("asymmetric", options =>
-	{
-		SecurityKey rsa = builder.Services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
-		options.IncludeErrorDetails = true;
-		options.TokenValidationParameters = new TokenValidationParameters
-		{
-			IssuerSigningKey = rsa,
-			ValidAudience = "jwt-test-app",
-			ValidIssuer = "jwt-test-app",
-			RequireSignedTokens = true,
-			RequireExpirationTime = false,
-			ValidateLifetime = false,
-			ValidateAudience = true,
-			ValidateIssuer = true,
-		};
-	});
+    .AddAuthentication(options =>
+    {
+        // options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        // options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        // options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer("google", o =>
+    {
+        o.SecurityTokenValidators.Clear();
+        o.SecurityTokenValidators.Add(new GoogleTokenValidator());
+    })
+    .AddJwtBearer("asymmetric", options =>
+    {
+        SecurityKey rsa = builder.Services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
+        options.IncludeErrorDetails = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            IssuerSigningKey = rsa,
+            ValidAudience = "jwt-test-app",
+            ValidIssuer = "jwt-test-app",
+            RequireSignedTokens = true,
+            RequireExpirationTime = false,
+            ValidateLifetime = false,
+            ValidateAudience = true,
+            ValidateIssuer = true,
+        };
+    });
 
 builder.Services
     .AddAuthorization(options =>
@@ -59,12 +57,12 @@ builder.Services
 
 builder.Services.AddSingleton<RsaSecurityKey>(provider =>
 {
-	RSA rsa = RSA.Create();
-	rsa.ImportRSAPublicKey(
-		source: Convert.FromBase64String(builder.Configuration["Jwt:Asymmetric:PublicKey"]),
-		bytesRead: out int _
-	);
-	return new RsaSecurityKey(rsa);
+    RSA rsa = RSA.Create();
+    rsa.ImportRSAPublicKey(
+        source: Convert.FromBase64String(builder.Configuration["Jwt:Asymmetric:PublicKey"]),
+        bytesRead: out int _
+    );
+    return new RsaSecurityKey(rsa);
 });
 
 // Add services to the container.
