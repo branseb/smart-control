@@ -1,45 +1,48 @@
 import { config } from "../config";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DeviceItemType } from "../models/deviceItem";
 import { DeviceDetailType } from "../models/deviceDetail";
-import { loginUserAtom, tokenResponseAtom } from "../store/loginAtom";
+import { tokenResponseAtom } from "../store/loginAtom";
 import { useAtomValue } from "jotai";
 
 
 
 export const useDevices = () => {
     const [devices, setDevices] = useState<DeviceItemType[]>([]);
-    const token = useAtomValue(tokenResponseAtom)
+    const { credential } = useAtomValue(tokenResponseAtom)
 
-
-
-    useEffect(() => {
-        if (token.credential) {
-            const headers = { 'Authorization': 'Bearer ' + token.credential };
-            const fetchData = () => fetch(config.api + 'Devices', { headers })
+    const fetchData = useCallback(() => {
+        if (credential) {
+            const headers = { 'Authorization': 'Bearer ' + credential };
+            fetch(config.api + 'Devices', { headers })
                 .then(resp => resp.json())
                 .then(resp => setDevices(resp))
-            fetchData()
-            console.log('fetch')
-            const timer = setInterval(() => { fetchData(); }, 1000 * 60);
-            return () => { clearInterval(timer) }
         }
+    }, [credential]);
 
-    }, [token])
+    useEffect(() => {
+        fetchData();
+        const timer = setInterval(() => { fetchData(); }, 1000 * 60);
+        return () => { clearInterval(timer) }
+    }, [credential, fetchData])
 
-    return devices
+    return {devices, fetchData};
 }
 
 export const useDeviceDetail = (id: string) => {
     const [deviceDetail, setDeviceDetail] = useState<DeviceDetailType>();
-    const token = useAtomValue(tokenResponseAtom)
+    const {credential} = useAtomValue(tokenResponseAtom)
+
+    const fetchData = useCallback(()=>{
+         const headers = { 'Authorization': 'Bearer ' + credential };
+        fetch(config.api + 'Devices/detail?id=' + id, { headers })
+            .then(resp => resp.json())
+            .then(resp => setDeviceDetail(resp as DeviceDetailType))
+    },[credential, id]);
 
     useEffect(() => {
-        const headers = { 'Authorization': 'Bearer ' + token.credential };
-        fetch(config.api + 'Devices/detail?id=' + id , { headers })
-            .then(resp => resp.json())
-            .then(resp => setDeviceDetail(resp))
-    }, [id,token])
-    return deviceDetail
+       fetchData();
+    }, [fetchData])
+    return {deviceDetail , fetchData}
 
 }

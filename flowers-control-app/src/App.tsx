@@ -27,7 +27,6 @@ export const App = () => {
           <Login></Login>
         </Toolbar>
       </AppBar>
-
       <Outlet />
     </div>
   )

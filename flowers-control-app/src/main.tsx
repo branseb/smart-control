@@ -41,7 +41,6 @@ const router = createBrowserRouter([
 ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
 		<ThemeProvider theme={theme}>
 			<GoogleOAuthProvider clientId={config.clientId}>
 				<CssBaseline>
@@ -49,5 +48,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 				</CssBaseline>
 			</GoogleOAuthProvider>
 		</ThemeProvider>
-	</React.StrictMode>,
 )

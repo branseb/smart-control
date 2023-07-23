@@ -27,10 +27,9 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
     paper:{
         background: 'rgba(55, 55, 55, 0.85)',
         boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
-        margin: '31px 21px',
+        marginTop: '31px',
         display: 'flex',
         flexDirection: 'row',
-        padding: '5px',
         cursor: 'pointer',
         height: 162,
         borderRadius: 10,

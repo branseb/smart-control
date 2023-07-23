@@ -1,6 +1,6 @@
 import { makeStyles } from "tss-react/mui";
 import { useNavigate } from "react-router-dom";
-import { DeviceItemType } from "../models/deviceItem";
+import { DeviceItemType, Role } from "../models/deviceItem";
 import { StatusIcon } from "./statusIcon";
 import { MenuItem, Paper, Typography } from "@mui/material";
 import { loginUserAtom } from "../store/loginAtom";
@@ -103,7 +103,7 @@ export const DeviceItem = (props: DeviceItemTypeProps) => {
                 </div>
                 <div className={classes.statusIcons}>
                     <StatusIcon status={device.status} />
-                    <AdminPanelSettingsIcon sx={{fontSize:30 , color:'#777777'}}/>
+                    {device.role=== Role.Admin&&<AdminPanelSettingsIcon  sx={{fontSize:30 ,color:'#777777'}}/>}
                 </div>
 
             </div>

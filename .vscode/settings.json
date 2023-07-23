@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/34c39941-bfe0-4446-aee8-ebee2074f94f/resourceGroups/devices-api-azure_group/providers/Microsoft.Web/sites/devices-api-azure",
+    "appService.deploySubpath": "devices-api/bin/Release/net7.0/publish"
+}

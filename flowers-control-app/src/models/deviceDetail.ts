@@ -3,9 +3,11 @@ import { Status } from "./deviceItem";
 
 export type DeviceDetailType = {
     sensors: Sensor[];
-	id: string,
+    id: string,
     name: string,
-    status: Status
+    status: Status,
+    admins: string[],
+    guests: string[]
 }
 
 export type Sensor = {
@@ -20,11 +22,13 @@ export type Sensor = {
 
     data: SensorDataType,
 
-	warnings: string[]
+    warnings: string[],
+
+
 };
 
 export type SensorDataType = {
-    humidity?:number
+    humidity?: number
 }
 
 export enum SensorType {
