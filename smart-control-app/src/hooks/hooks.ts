@@ -12,7 +12,7 @@ export const useDevices = () => {
     const fetchData = useCallback(() => {
         if (credential) {
             const headers = { 'Authorization': 'Bearer ' + credential };
-            fetch(config.api + 'Devices', { headers })
+            fetch(config.api + 'Devices', { headers, mode: 'cors' })
                 .then(resp => resp.json())
                 .then(resp => setDevices(resp))
         }
@@ -33,7 +33,7 @@ export const useDeviceDetail = (id: string) => {
 
     const fetchData = useCallback(() => {
         const headers = { 'Authorization': 'Bearer ' + credential };
-        fetch(config.api + 'Devices/detail?id=' + id, { headers })
+        fetch(config.api + 'Devices/detail?id=' + id, { headers, mode: 'cors' })
             .then(resp => resp.json())
             .then(resp => setDeviceDetail(resp as DeviceDetailType))
     }, [credential, id]);

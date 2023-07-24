@@ -28,7 +28,7 @@ export const AddRoleUserDialog = (props: AddRoleUserDialogTypeProps) => {
             fetch(config.api + "Device/addRole?email=" + email
                 + "&deviceId=" + deviceId
                 + "&roleStatus=" + role,
-                { headers, method: "POST" })
+                { headers, method: "POST", mode: 'cors' })
                 .then(resp => {
                     if (resp.ok) {
                         setEmail("");

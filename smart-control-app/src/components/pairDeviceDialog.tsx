@@ -61,7 +61,7 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
 
     const onPairButtonClick = useCallback(() => {
         const headers = { 'Authorization': 'Bearer ' + credential };
-        fetch(`${config.api}Device/pair?id=${id}&pin=${pin}`, { headers, method: 'POST' })
+        fetch(`${config.api}Device/pair?id=${id}&pin=${pin}`, { headers, method: 'POST', mode: 'cors' })
             .then((resp) => {
                 if (resp.status == 200) {
                     props.onClose();

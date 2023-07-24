@@ -36,7 +36,7 @@ export const Login = () => {
 	useEffect(() => {
 		if (tokenResponse.credential) {
 			const headers = { 'Authorization': 'Bearer ' + tokenResponse.credential };
-			fetch(`${config.api}Devices/user`, { headers })
+			fetch(`${config.api}Devices/user`, { headers, mode: 'cors' })
 				.then(resp => resp.json())
 				.then(setUser)
 		}
