@@ -89,8 +89,6 @@ static class Program
         using RSA rsa = RSA.Create();
         var privateKey = File.ReadAllText("./private-key.txt");
 
-        Console.WriteLine(privateKey);
-
         rsa.ImportRSAPrivateKey(
             source: Convert.FromBase64String(privateKey),
             bytesRead: out int _);
