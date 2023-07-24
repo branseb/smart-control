@@ -27,7 +27,6 @@ const useStyles = makeStyles({ name: 'device-item' })(() => ({
     paper: {
         background: 'rgba(55, 55, 55, 0.85)',
         boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
-        margin: '31px 21px',
         display: 'flex',
         flexDirection: 'row',
         padding: '5px',

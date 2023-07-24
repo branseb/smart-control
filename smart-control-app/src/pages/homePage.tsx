@@ -1,4 +1,4 @@
-import { Fab, Typography } from "@mui/material";
+import { Fab, Grid, Typography } from "@mui/material";
 import { useAtomValue } from "jotai";
 import { DeviceItem } from "../components/deviceItem";
 import { useDevices } from "../hooks/hooks";
@@ -14,6 +14,11 @@ const useStyles = makeStyles({ name: 'home-page' })(() => ({
         position: "absolute",
         right: '20px',
         bottom: '15px'
+    },
+    root: {
+        display: 'flex',
+        padding: 20,
+        paddingTop: 40
     }
 }))
 
@@ -30,17 +35,22 @@ export const HomePage = () => {
     return (
         <div>
             {loginUser
-                ? <div>
+                ? <Grid container
+                    spacing={3}
+                    className={classes.root}
+                     >
                     {devices?.length && devices.map(device =>
-                        <DeviceItem key={device.id} device={device} />)}
-                    <Fab
-                        color="primary"
-                        className={classes.addIcon}
-                        onClick={onAddButtonClick}>
-                        <Add />
-                    </Fab>
-                    <PairDeviceDialog open={openPairDialog} onSuccsess={fetchData} onClose={() => setOpenPairDialog(false)} />
-                </div>
+                        <Grid key={device.id} xs={12} sm={6} md={4} item>
+                            <DeviceItem device={device} />
+                        </Grid>)}
+                        <Fab
+                            color="primary"
+                            className={classes.addIcon}
+                            onClick={onAddButtonClick}>
+                            <Add />
+                        </Fab>
+                        <PairDeviceDialog open={openPairDialog} onSuccsess={fetchData} onClose={() => setOpenPairDialog(false)} />
+                </Grid>
                 : <div>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         You must login!

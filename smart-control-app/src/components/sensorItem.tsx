@@ -4,12 +4,13 @@ import { Sensor } from "../models/deviceDetail";
 import { CircularWithLabel } from "./circularWithLabel";
 import { StatusIcon } from "./statusIcon";
 
-const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
+const useStyles = makeStyles({ name: 'sensor-item' })((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        width:'100%',
         padding: 10,
     },
     content: {
@@ -22,17 +23,21 @@ const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
     sensor: {
         display: 'flex',
         flexDirection: 'column',
-        justifyItems: 'center'
+        justifyItems: 'center',
+        textAlign:'center'
     },
     paper: {
         background: 'rgba(55, 55, 55, 0.85)',
         boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
-        marginTop: '31px',
         display: 'flex',
         flexDirection: 'row',
+        justifyContent:'space-between',
         cursor: 'pointer',
         height: 162,
         borderRadius: 10,
+        [theme.breakpoints.up('sm')]:{
+            width:280
+        }
     }
 }))
 

@@ -7,17 +7,19 @@ import { useAtomValue } from "jotai";
 import { AuthorizedUsers } from "../components/authorizedUsers";
 import { AddRoleUserDialog } from "../components/addRoleUserDialog";
 import { useState } from "react";
+import { Grid } from "@mui/material";
 
 
 const useStyles = makeStyles({ name: 'detail-page' })(() => ({
     flowers: {
         display: 'flex',
         flexDirection: 'column',
+
     },
     root: {
         display: 'flex',
-        padding: '5px',
-        justifyContent: 'center'
+        padding: '20px',
+        justifyContent: 'center',
     }
 }))
 
@@ -40,7 +42,13 @@ export const DetailPage = () => {
                             {deviceDetail.status === 0
                                 ? <h1>Offline</h1>
                                 : <h1>Online</h1>}
-                            {deviceDetail.sensors && (deviceDetail.sensors.map(sensor => <SensorItem key={sensor.id} sensor={sensor} />))}
+                            {deviceDetail.sensors &&
+                                <Grid container spacing={3}>
+                                    {deviceDetail.sensors.map(sensor =>
+                                        <Grid xs={12} sm={6} md={4} item key={sensor.id}>
+                                            <SensorItem sensor={sensor} />
+                                        </Grid>)}
+                                </Grid>}
                             <AddRoleUserDialog deviceId={deviceDetail.id} onClose={() => { fetchData(), setOpenAddUserDialog(false) }} open={openAddUserDialog}></AddRoleUserDialog>
                         </div>
                         : <div></div>}
