@@ -37,9 +37,8 @@ export const Login = () => {
 		if (tokenResponse.credential) {
 			const headers = { 
 				'Authorization': 'Bearer ' + tokenResponse.credential,
-				'Access-Control-Allow-Origin': '*'
 			};
-			fetch(`${config.api}Devices/user`, { headers, mode: 'cors' })
+			fetch(`${config.api}Devices/user`, { headers })
 				.then(resp => resp.json())
 				.then(setUser)
 		}

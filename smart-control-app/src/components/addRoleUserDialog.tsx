@@ -24,11 +24,11 @@ export const AddRoleUserDialog = (props: AddRoleUserDialogTypeProps) => {
     const onButtonClick = () => {
         setButtonClicked(true);
         if (validEmail) {
-            const headers = { 'Authorization': 'Bearer ' + tokenResponse.credential, 'Access-Control-Allow-Origin': '*' };
+            const headers = { 'Authorization': 'Bearer ' + tokenResponse.credential };
             fetch(config.api + "Device/addRole?email=" + email
                 + "&deviceId=" + deviceId
                 + "&roleStatus=" + role,
-                { headers, method: "POST", mode: 'cors' })
+                { headers, method: "POST"})
                 .then(resp => {
                     if (resp.ok) {
                         setEmail("");
