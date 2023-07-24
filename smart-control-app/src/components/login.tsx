@@ -7,7 +7,7 @@ import { makeStyles } from "tss-react/mui";
 import { config } from "../config";
 import { loginUserAtom, tokenResponseAtom } from "../store/loginAtom";
 
-const useStyles = makeStyles({ name: 'login' })(theme => ({
+const useStyles = makeStyles({ name: 'login' })(() => ({
 	popoverposition: {
 		paddingLeft: 20
 	},

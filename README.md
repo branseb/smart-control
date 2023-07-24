@@ -26,3 +26,8 @@ The user as an administrator has the option to add additional accounts with the 
 ## Authorization and devices pairing workflow
 
 ![workflow](workflow1.jpg)
+
+## App preview
+![prntScr1](prntScr1.png)
+![prntScr2](prntScr2.png)
+![prntScr3](prntScr3.png)

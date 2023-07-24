@@ -49,7 +49,7 @@ export const AddRoleUserDialog = (props: AddRoleUserDialogTypeProps) => {
                         <RadioGroup
                             row
                             value={role}
-                            onChange={(e, newValue) => setRole(+newValue)}
+                            onChange={(_, newValue) => setRole(+newValue)}
                         >
                             <FormControlLabel value={Role.Admin} label="Admin" control={<Radio />} />
                             <FormControlLabel value={Role.Guest} label="Guest" control={<Radio />} />
