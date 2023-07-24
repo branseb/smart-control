@@ -29,5 +29,13 @@ The user as an administrator has the option to add additional accounts with the 
 
 ## App preview
 ![prntScr1](prntScr1.png)
+
+Devices list page
+
 ![prntScr2](prntScr2.png)
+
+Device detail page
+
 ![prntScr3](prntScr3.png)
+
+Adding new device
