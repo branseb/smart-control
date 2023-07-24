@@ -60,7 +60,7 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
     const [error, setError] = useState<boolean>(false);
 
     const onPairButtonClick = useCallback(() => {
-        const headers = { 'Authorization': 'Bearer ' + credential };
+        const headers = { 'Authorization': 'Bearer ' + credential, 'Access-Control-Allow-Origin': '*' };
         fetch(`${config.api}Device/pair?id=${id}&pin=${pin}`, { headers, method: 'POST', mode: 'cors' })
             .then((resp) => {
                 if (resp.status == 200) {

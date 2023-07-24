@@ -11,7 +11,7 @@ export const useDevices = () => {
 
     const fetchData = useCallback(() => {
         if (credential) {
-            const headers = { 'Authorization': 'Bearer ' + credential };
+            const headers = { 'Authorization': 'Bearer ' + credential, 'Access-Control-Allow-Origin': '*' };
             fetch(config.api + 'Devices', { headers, mode: 'cors' })
                 .then(resp => resp.json())
                 .then(resp => setDevices(resp))
@@ -32,7 +32,7 @@ export const useDeviceDetail = (id: string) => {
     const { credential } = useAtomValue(tokenResponseAtom)
 
     const fetchData = useCallback(() => {
-        const headers = { 'Authorization': 'Bearer ' + credential };
+        const headers = { 'Authorization': 'Bearer ' + credential, 'Access-Control-Allow-Origin': '*' };
         fetch(config.api + 'Devices/detail?id=' + id, { headers, mode: 'cors' })
             .then(resp => resp.json())
             .then(resp => setDeviceDetail(resp as DeviceDetailType))
