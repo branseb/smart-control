@@ -1,7 +1,7 @@
 # Smart-control
 This project is for managing and retrieving household information using an ARM computer.
 
-### riešenie pozostáva z nasledujúcich prjektov:
+### the solution consists of the following projects:
 
 ## Key-generator
 The console application that generates private and public key. By using a token generator and a private key, a JWT token is generated, which is then used to authorize the device against the api.
