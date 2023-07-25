@@ -1,16 +1,16 @@
-import { Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import { Sensor } from "../models/deviceDetail";
 import { CircularWithLabel } from "./circularWithLabel";
-import { StatusIcon } from "./statusIcon";
+import { ItemWraper } from "./itemWraper";
 
-const useStyles = makeStyles({ name: 'sensor-item' })((theme) => ({
-    root: {
+const useStyles = makeStyles({ name: 'sensor-item' })(() => ({
+    /*root: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
-        width:'100%',
+        // alignItems: 'center',
+        width: '100%',
         padding: 10,
     },
     content: {
@@ -20,48 +20,54 @@ const useStyles = makeStyles({ name: 'sensor-item' })((theme) => ({
         gap: 10,
 
     },
+    statusIcon: {
+        display: 'flex',
+        justifyItems: 'right'
+    },*/
     sensor: {
         display: 'flex',
         flexDirection: 'column',
         justifyItems: 'center',
-        textAlign:'center'
+        textAlign: 'center'
     },
-    paper: {
-        background: 'rgba(55, 55, 55, 0.85)',
-        boxShadow: '0px 5px 22px 5px rgba(0, 0, 0, 0.15) inset',
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent:'space-between',
-        cursor: 'pointer',
-        height: 162,
-        borderRadius: 10,
-        [theme.breakpoints.up('sm')]:{
-            width:280
-        }
-    }
+
 }))
 
 type SensorItemTypeProps = {
-    sensor: Sensor
+    sensor: Sensor,
+    className?: string
 }
 
 export const SensorItem = (props: SensorItemTypeProps) => {
-    const { classes } = useStyles();
-    const { sensor } = props
+    const { classes, cx } = useStyles();
+    const { sensor, className } = props
 
     return (
-        <Paper elevation={4} className={classes.paper}>
+        <ItemWraper
+            title={sensor.name}
+            status={sensor.status}
+            className={className}
+
+        >
+            {sensor.data.humidity &&
+                <div className={classes.sensor}>
+                    <Typography>{sensor.sensorType === 0 && 'Humidity sensor'}</Typography>
+                    <CircularWithLabel value={sensor.data.humidity} />
+                </div>}
+        </ItemWraper>
+
+    )
+} /*<Paper elevation={4} className={cx(classes.paper, className)}>
             <div className={classes.root}>
                 <div className={classes.content}>
                     <h1>{sensor.name}</h1>
-                    <StatusIcon status={sensor.status} />
-                </div>
+                   
+                
                 {sensor.data.humidity &&
                     <div className={classes.sensor}>
                         <Typography>{sensor.sensorType === 0 && 'Humidity sensor'}</Typography>
                         <CircularWithLabel value={sensor.data.humidity} />
-                    </div>}
+                    </div>}</div>
+                    <StatusIcon className={classes.statusIcon} status={sensor.status} />
             </div>
-        </Paper>
-    )
-}
+        </Paper>*/

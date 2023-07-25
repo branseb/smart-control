@@ -16,14 +16,15 @@ const useStyles = makeStyles<{ status: Status | SensorStatus }>({ name: 'status-
 
 type StatusIconTypeProps = {
     status: Status | SensorStatus
+    className?: string
 }
 
 export const StatusIcon = (props: StatusIconTypeProps) => {
 
-    const { classes } = useStyles({ status: props.status });
+    const { classes,cx } = useStyles({ status: props.status });
 
     return (
-        <div className={classes.root} />
+        <div className={cx(classes.root,props.className)} />
     )
 
 }

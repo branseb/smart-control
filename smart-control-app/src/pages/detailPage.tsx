@@ -7,19 +7,18 @@ import { useAtomValue } from "jotai";
 import { AuthorizedUsers } from "../components/authorizedUsers";
 import { AddRoleUserDialog } from "../components/addRoleUserDialog";
 import { useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
+import { ItemContainer } from "../components/itemContainer";
 
 
 const useStyles = makeStyles({ name: 'detail-page' })(() => ({
     flowers: {
         display: 'flex',
         flexDirection: 'column',
-
+        alignItems: 'flex-start'
     },
     root: {
-        display: 'flex',
         padding: '20px',
-        justifyContent: 'center',
     }
 }))
 
@@ -37,18 +36,16 @@ export const DetailPage = () => {
                 ? <div className={classes.root}>
                     {loginUser
                         ? <div className={classes.flowers}>
-                            <h1>{deviceDetail.name}</h1>
+                            <Typography variant='h2'>{deviceDetail.name}</Typography>
                             <AuthorizedUsers deviceDetail={deviceDetail} onAddButtonClick={() => { setOpenAddUserDialog(true) }}></AuthorizedUsers>
                             {deviceDetail.status === 0
                                 ? <h1>Offline</h1>
                                 : <h1>Online</h1>}
                             {deviceDetail.sensors &&
-                                <Grid container spacing={3}>
+                                <ItemContainer>
                                     {deviceDetail.sensors.map(sensor =>
-                                        <Grid xs={12} sm={6} md={4} item key={sensor.id}>
-                                            <SensorItem sensor={sensor} />
-                                        </Grid>)}
-                                </Grid>}
+                                        <SensorItem sensor={sensor} key={sensor.id} />)}
+                                </ItemContainer>}
                             <AddRoleUserDialog deviceId={deviceDetail.id} onClose={() => { fetchData(), setOpenAddUserDialog(false) }} open={openAddUserDialog}></AddRoleUserDialog>
                         </div>
                         : <div></div>}

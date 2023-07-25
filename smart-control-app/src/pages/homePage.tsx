@@ -7,6 +7,8 @@ import { Add } from "@mui/icons-material";
 import { makeStyles } from "tss-react/mui";
 import { useState } from "react";
 import { PairDeviceDialog } from "../components/pairDeviceDialog";
+import { ItemContainer } from "../components/itemContainer";
+import React from "react";
 
 const useStyles = makeStyles({ name: 'home-page' })(() => ({
     addIcon: {
@@ -33,30 +35,28 @@ export const HomePage = () => {
     }
 
     return (
-        <div>
-            {loginUser
-                ? <Grid container
-                    spacing={3}
-                    className={classes.root}
-                     >
-                    {devices?.length && devices.map(device =>
-                        <Grid key={device.id} xs={12} sm={6} md={4} item>
-                            <DeviceItem device={device} />
-                        </Grid>)}
-                        <Fab
-                            color="primary"
-                            className={classes.addIcon}
-                            onClick={onAddButtonClick}>
-                            <Add />
-                        </Fab>
-                        <PairDeviceDialog open={openPairDialog} onSuccsess={fetchData} onClose={() => setOpenPairDialog(false)} />
-                </Grid>
-                : <div>
+        <div className={classes.root}>
+            {loginUser &&
+                <React.Fragment>
+                    <ItemContainer>
+                        {devices?.length && devices.map(device =>
+                            <DeviceItem key={device.id} device={device} />
+                        )}
+                    </ItemContainer>
+                    <Fab
+                        color="primary"
+                        className={classes.addIcon}
+                        onClick={onAddButtonClick}>
+                        <Add />
+                    </Fab>
+                    <PairDeviceDialog open={openPairDialog} onSuccsess={fetchData} onClose={() => setOpenPairDialog(false)} />
+                </React.Fragment>}
+            {!loginUser &&
+                <div>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         You must login!
                     </Typography>
-                </div>
-            }
+                </div>}
         </div>
     )
 }
