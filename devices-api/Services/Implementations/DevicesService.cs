@@ -4,8 +4,11 @@ public class DevicesService : IDevicesService
     private List<(string, string, RoleStatus)> _assignedDevices = new List<(string, string, RoleStatus)>() {
         ("branseb@gmail.com", "000001" ,RoleStatus.Admin),
         ("branseb@gmail.com", "000003",RoleStatus.Guest),
-            ("parsoerik@gmail.com", "000001" ,RoleStatus.Admin),
-        ("parsoerik@gmail.com", "000003",RoleStatus.Guest),
+                ("branseb@gmail.com", "000002",RoleStatus.Guest),
+        ("parsoerik@gmail.com", "000001" ,RoleStatus.Admin),
+        ("parsoerik@gmail.com", "000002",RoleStatus.Admin),
+        ("parsoerik@gmail.com", "000003",RoleStatus.Admin),
+
     };
 
     private List<(string id, string pin)> _pairingDevices = new List<(string, string)>();
