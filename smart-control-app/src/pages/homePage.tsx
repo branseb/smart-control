@@ -1,12 +1,13 @@
+import { Add } from "@mui/icons-material";
 import { Fab, Typography } from "@mui/material";
 import { useAtomValue } from "jotai";
+import React, { useState } from "react";
+import { makeStyles } from "tss-react/mui";
 import { DeviceItem } from "../components/deviceItem";
+import { ItemContainer } from "../components/itemContainer";
+import { PairDeviceDialog } from "../components/pairDeviceDialog";
 import { useDevices } from "../hooks/hooks";
 import { loginUserAtom } from "../store/loginAtom";
-import { Add } from "@mui/icons-material";
-import { makeStyles } from "tss-react/mui";
-import { useState } from "react";
-import { PairDeviceDialog } from "../components/pairDeviceDialog";
 
 const useStyles = makeStyles({ name: 'home-page' })(() => ({
     addIcon: {
@@ -14,6 +15,11 @@ const useStyles = makeStyles({ name: 'home-page' })(() => ({
         position: "absolute",
         right: '20px',
         bottom: '15px'
+    },
+    root: {
+        display: 'flex',
+        padding: 20,
+        paddingTop: 40
     }
 }))
 
@@ -28,11 +34,14 @@ export const HomePage = () => {
     }
 
     return (
-        <div>
-            {loginUser
-                ? <div>
-                    {devices?.length && devices.map(device =>
-                        <DeviceItem key={device.id} device={device} />)}
+        <div className={classes.root}>
+            {loginUser &&
+                <React.Fragment>
+                    <ItemContainer>
+                        {devices?.length && devices.map(device =>
+                            <DeviceItem key={device.id} device={device} />
+                        )}
+                    </ItemContainer>
                     <Fab
                         color="primary"
                         className={classes.addIcon}
@@ -40,13 +49,13 @@ export const HomePage = () => {
                         <Add />
                     </Fab>
                     <PairDeviceDialog open={openPairDialog} onSuccsess={fetchData} onClose={() => setOpenPairDialog(false)} />
-                </div>
-                : <div>
+                </React.Fragment>}
+            {!loginUser &&
+                <div>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         You must login!
                     </Typography>
-                </div>
-            }
+                </div>}
         </div>
     )
 }
