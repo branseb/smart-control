@@ -1,18 +1,18 @@
+import { Typography } from "@mui/material";
+import { useAtomValue } from "jotai";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { makeStyles } from "tss-react/mui";
+import { AddRoleUserDialog } from "../components/addRoleUserDialog";
+import { AuthorizedUsers } from "../components/authorizedUsers";
+import { ItemContainer } from "../components/itemContainer";
 import { SensorItem } from "../components/sensorItem";
 import { useDeviceDetail } from "../hooks/hooks";
 import { loginUserAtom } from "../store/loginAtom";
-import { useAtomValue } from "jotai";
-import { AuthorizedUsers } from "../components/authorizedUsers";
-import { AddRoleUserDialog } from "../components/addRoleUserDialog";
-import { useState } from "react";
-import { Grid, Typography } from "@mui/material";
-import { ItemContainer } from "../components/itemContainer";
 
 
 const useStyles = makeStyles({ name: 'detail-page' })(() => ({
-    flowers: {
+    loginUserContent: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start'
@@ -35,7 +35,7 @@ export const DetailPage = () => {
             {deviceDetail
                 ? <div className={classes.root}>
                     {loginUser
-                        ? <div className={classes.flowers}>
+                        ? <div className={classes.loginUserContent}>
                             <Typography variant='h2'>{deviceDetail.name}</Typography>
                             <AuthorizedUsers deviceDetail={deviceDetail} onAddButtonClick={() => { setOpenAddUserDialog(true) }}></AuthorizedUsers>
                             {deviceDetail.status === 0

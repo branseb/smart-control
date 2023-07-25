@@ -1,14 +1,13 @@
-import { Fab, Grid, Typography } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { Fab, Typography } from "@mui/material";
 import { useAtomValue } from "jotai";
+import React, { useState } from "react";
+import { makeStyles } from "tss-react/mui";
 import { DeviceItem } from "../components/deviceItem";
+import { ItemContainer } from "../components/itemContainer";
+import { PairDeviceDialog } from "../components/pairDeviceDialog";
 import { useDevices } from "../hooks/hooks";
 import { loginUserAtom } from "../store/loginAtom";
-import { Add } from "@mui/icons-material";
-import { makeStyles } from "tss-react/mui";
-import { useState } from "react";
-import { PairDeviceDialog } from "../components/pairDeviceDialog";
-import { ItemContainer } from "../components/itemContainer";
-import React from "react";
 
 const useStyles = makeStyles({ name: 'home-page' })(() => ({
     addIcon: {

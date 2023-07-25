@@ -1,8 +1,8 @@
-import { Paper, Typography } from "@mui/material"
-import { Status } from "../models/deviceItem"
-import { StatusIcon } from "./statusIcon"
+import { Paper, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import { SensorStatus } from "../models/deviceDetail";
+import { Status } from "../models/deviceItem";
+import { StatusIcon } from "./statusIcon";
 
 const useStyles = makeStyles({ name: 'device-item' })((theme) => ({
     root: {
@@ -53,27 +53,27 @@ const useStyles = makeStyles({ name: 'device-item' })((theme) => ({
 type ItemWraperProps = {
     title: string
     children: React.ReactNode
-    status: Status|SensorStatus
+    status: Status | SensorStatus
     icon?: React.ReactNode
-    className?:string
-    onClick?:()=>void
+    className?: string
+    onClick?: () => void
 }
 
 export const ItemWraper = (props: ItemWraperProps) => {
-    const { classes,cx } = useStyles();
-    const { title, children, status, icon, className,onClick } = props
+    const { classes, cx } = useStyles();
+    const { title, children, status, icon, className, onClick } = props
 
     return (
         <Paper elevation={4} className={cx(classes.paper, className)} onClick={onClick}>
             <div className={classes.root}>
-            <div className={classes.titleAndChildren}>
-                {children}
-                <Typography className={classes.title} variant="h2" >{title}</Typography>
-            </div>
-            <div className={classes.statusIcons}>
-                <StatusIcon status={status}></StatusIcon>
-                {icon}
-            </div>
+                <div className={classes.titleAndChildren}>
+                    {children}
+                    <Typography className={classes.title} variant="h2" >{title}</Typography>
+                </div>
+                <div className={classes.statusIcons}>
+                    <StatusIcon status={status}></StatusIcon>
+                    {icon}
+                </div>
             </div>
         </Paper>
     )
