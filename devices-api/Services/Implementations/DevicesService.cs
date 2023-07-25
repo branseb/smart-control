@@ -5,7 +5,7 @@ public class DevicesService : IDevicesService
         ("branseb@gmail.com", "000001" ,RoleStatus.Admin),
         ("branseb@gmail.com", "000003",RoleStatus.Guest),
             ("parsoerik@gmail.com", "000001" ,RoleStatus.Admin),
-        ("parsoeri@gmail.com", "000003",RoleStatus.Guest),
+        ("parsoerik@gmail.com", "000003",RoleStatus.Guest),
     };
 
     private List<(string id, string pin)> _pairingDevices = new List<(string, string)>();
