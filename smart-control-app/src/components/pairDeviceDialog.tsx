@@ -76,13 +76,14 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
         <Dialog
             open={props.open}
             onClose={() => props.onClose()}>
-            <div className={classes.root}>
+            <div className={classes.root} data-test='pair-device-dialog' >
                 <div className={classes.texts}>
                     <p className={classes.text1}>Add new device</p>
                     <p className={classes.text2}>Type in device id and pin from manual</p>
                     <p className={classes.text2}>Device must be connected to internet</p>
                 </div>
                 <TextField
+                    data-test='pair-device-id'
                     variant="outlined"
                     label='Device id'
                     color="primary"
@@ -94,6 +95,7 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
                     }}
                 />
                 <TextField
+                    data-test='pair-device-pin'
                     variant="outlined"
                     label='Pin'
                     value={pin}
@@ -107,6 +109,7 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
                     Error! Try again!</Typography>}
                 <Button
                     //disabled={pin.length!=12&&id.length!=6}
+                    data-test='confirm-pair-device-button'
                     className={classes.button}
                     variant="contained"
                     onClick={onPairButtonClick}>Pair Device</Button>

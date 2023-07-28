@@ -39,10 +39,11 @@ export const HomePage = () => {
                 <React.Fragment>
                     <ItemContainer>
                         {devices?.length && devices.map(device =>
-                            <DeviceItem key={device.id} device={device} />
+                            <DeviceItem data-test="device-item"  key={device.id} device={device} />
                         )}
                     </ItemContainer>
                     <Fab
+                        data-test='pair-device-button'
                         color="primary"
                         className={classes.addIcon}
                         onClick={onAddButtonClick}>
