@@ -15,7 +15,7 @@ export const AddRoleUserDialog = (props: AddRoleUserDialogTypeProps) => {
     const { open, onClose, deviceId } = props;
     const [role, setRole] = useState<Role>(Role.Admin);
     const [email, setEmail] = useState<string>("");
-    const expression: RegExp = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const expression = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     const validEmail = expression.test(email);
     const [buttonClicked, setButtonClicked] = useState<boolean>(false);
     const error = buttonClicked && !validEmail;
