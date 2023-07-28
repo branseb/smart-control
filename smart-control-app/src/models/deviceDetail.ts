@@ -25,7 +25,7 @@ export type SensorDataType = {
 
 export enum SensorType {
     FlowerHumiditySensor
-};
+}
 
 export enum SensorStatus {
     Offline,

@@ -17,6 +17,7 @@ export const SetAtom = () => {
                 :
                 "user"
         })
-    }, [])
+    }, [setToken]);
+
     return null;
 }

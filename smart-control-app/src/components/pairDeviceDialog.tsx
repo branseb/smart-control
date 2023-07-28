@@ -52,7 +52,7 @@ const useStyles = makeStyles({ name: 'pair-device-dialog' })(() => ({
 }))
 
 export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
-
+    const { onClose, onSuccsess, open } = props;
     const { classes } = useStyles();
     const [id, setId] = useState<string>('');
     const [pin, setPin] = useState<string>('');
@@ -64,18 +64,18 @@ export const PairDeviceDialog = (props: AddDeviceTypeProps) => {
         fetch(`${config.api}Device/pair?id=${id}&pin=${pin}`, { headers, method: 'POST' })
             .then((resp) => {
                 if (resp.status == 200) {
-                    props.onClose();
-                    props.onSuccsess();
+                    onClose();
+                    onSuccsess();
                 }
                 if (resp.status == 403)
                     setError(true);
             })
-    }, [credential, id, pin])
+    }, [credential, id, pin, onClose, onSuccsess])
 
     return (
         <Dialog
-            open={props.open}
-            onClose={() => props.onClose()}>
+            open={open}
+            onClose={() => onClose()}>
             <div className={classes.root} data-test='pair-device-dialog' >
                 <div className={classes.texts}>
                     <p className={classes.text1}>Add new device</p>

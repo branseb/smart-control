@@ -50,6 +50,9 @@ export const AuthorizedUsers = (props: AuthorizedUsersTypeProps) => {
     const { deviceDetail, onAddButtonClick } = props;
     const loginUser = useAtomValue(loginUserAtom);
 
+    if (!loginUser)
+        return null;
+
     return (
         <div className={classes.usersAndAddUser} data-test='users-add-user'>
             <div className={classes.users}>
@@ -70,7 +73,7 @@ export const AuthorizedUsers = (props: AuthorizedUsersTypeProps) => {
                     style={{ borderRadius: '50%', marginLeft: '-10px', border: '1px solid black' }}
                 />
             </div>
-            <IconButton size="medium"  className={classes.addButton} color="inherit" onClick={onAddButtonClick}>
+            <IconButton size="medium" className={classes.addButton} color="inherit" onClick={onAddButtonClick}>
                 <PersonAddAltRoundedIcon data-test='add-user-role' fontSize='small' />
             </IconButton>
         </div>

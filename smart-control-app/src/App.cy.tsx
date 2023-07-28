@@ -1,7 +1,7 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { mount } from 'cypress/react'
-import { RouterProvider, createMemoryRouter, redirect } from 'react-router-dom'
+import { RouterProvider, createMemoryRouter } from 'react-router-dom'
 import { config } from './config.ts'
 import { routes } from './router.tsx'
 import { theme } from './theme.ts'

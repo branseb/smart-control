@@ -31,8 +31,7 @@ export const Login = () => {
 	const [user, setUser] = useAtom(loginUserAtom);
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 	const openUserMenu = Boolean(anchorEl);
-	var popoverId = openUserMenu ? 'simple-popover' : undefined;
-	console.log({ tokenResponse });
+	const popoverId = openUserMenu ? 'simple-popover' : undefined;
 
 	useEffect(() => {
 		if (tokenResponse.credential) {
@@ -43,7 +42,7 @@ export const Login = () => {
 				.then(resp => resp.json())
 				.then(setUser)
 		}
-	}, [tokenResponse]);
+	}, [tokenResponse, setUser]);
 
 	if (user)
 		return (
