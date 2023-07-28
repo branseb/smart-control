@@ -32,10 +32,11 @@ export const Login = () => {
 	const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
 	const openUserMenu = Boolean(anchorEl);
 	var popoverId = openUserMenu ? 'simple-popover' : undefined;
+	console.log({ tokenResponse });
 
 	useEffect(() => {
 		if (tokenResponse.credential) {
-			const headers = { 
+			const headers = {
 				'Authorization': 'Bearer ' + tokenResponse.credential,
 			};
 			fetch(`${config.api}Devices/user`, { headers })
@@ -46,8 +47,9 @@ export const Login = () => {
 
 	if (user)
 		return (
-			<Fragment>
+			<Fragment >
 				<img
+					data-test='login-button'
 					src={user.picture}
 					onClick={(e) => setAnchorEl(e.currentTarget)}
 					aria-describedby={popoverId}
@@ -72,7 +74,7 @@ export const Login = () => {
 						<div
 							className={classes.logoutContent}
 							onClick={() => { setUser(undefined); googleLogout() }}>
-							<Typography>logout</Typography>
+							<Typography data-test='logout-button'>logout</Typography>
 							<LogoutIcon sx={{ color: 'white' }} /></div>
 					</div>
 				</Popover>

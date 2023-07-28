@@ -43,7 +43,7 @@ export const AddRoleUserDialog = (props: AddRoleUserDialogTypeProps) => {
             <DialogTitle>Add new user to your device</DialogTitle>
             <DialogContent>
                 <Stack gap={2}>
-                    <TextField label="email" helperText={error && "Wrong email!"} error={error} value={email} onChange={e => setEmail(e.target.value)}></TextField>
+                    <TextField data-test='role-user-email' label="email" helperText={error && "Wrong email!"} error={error} value={email} onChange={e => setEmail(e.target.value)}></TextField>
                     <FormControl>
                         <FormLabel>Role</FormLabel>
                         <RadioGroup
@@ -51,14 +51,14 @@ export const AddRoleUserDialog = (props: AddRoleUserDialogTypeProps) => {
                             value={role}
                             onChange={(_, newValue) => setRole(+newValue)}
                         >
-                            <FormControlLabel value={Role.Admin} label="Admin" control={<Radio />} />
+                            <FormControlLabel data-test='admin-role*control' value={Role.Admin} label="Admin" control={<Radio />} />
                             <FormControlLabel value={Role.Guest} label="Guest" control={<Radio />} />
                         </RadioGroup>
                     </FormControl>
                 </Stack>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onButtonClick} disabled={error} variant="text">Confirm</Button>
+                <Button onClick={onButtonClick} data-test='confirm-user-role' disabled={error} variant="text">Confirm</Button>
             </DialogActions>
         </Dialog>
     )

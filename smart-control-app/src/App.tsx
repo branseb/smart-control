@@ -20,7 +20,7 @@ export const App = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar data-test='toolbar'>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Smarthome
           </Typography>

@@ -64,8 +64,8 @@ export const ItemWraper = (props: ItemWraperProps) => {
     const { title, children, status, icon, className, onClick } = props
 
     return (
-        <Paper elevation={4} className={cx(classes.paper, className)} onClick={onClick}>
-            <div className={classes.root}>
+        <Paper elevation={4}  className={cx(classes.paper, className)} onClick={onClick}>
+            <div className={classes.root} data-test='item'>
                 <div className={classes.titleAndChildren}>
                     {children}
                     <Typography className={classes.title} variant="h2" >{title}</Typography>

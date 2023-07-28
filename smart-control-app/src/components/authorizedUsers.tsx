@@ -51,7 +51,7 @@ export const AuthorizedUsers = (props: AuthorizedUsersTypeProps) => {
     const loginUser = useAtomValue(loginUserAtom);
 
     return (
-        <div className={classes.usersAndAddUser}>
+        <div className={classes.usersAndAddUser} data-test='users-add-user'>
             <div className={classes.users}>
                 {deviceDetail.guests
                     .map(guest =>
@@ -70,8 +70,8 @@ export const AuthorizedUsers = (props: AuthorizedUsersTypeProps) => {
                     style={{ borderRadius: '50%', marginLeft: '-10px', border: '1px solid black' }}
                 />
             </div>
-            <IconButton size="medium" className={classes.addButton} color="inherit" onClick={onAddButtonClick}>
-                <PersonAddAltRoundedIcon fontSize='small' />
+            <IconButton size="medium"  className={classes.addButton} color="inherit" onClick={onAddButtonClick}>
+                <PersonAddAltRoundedIcon data-test='add-user-role' fontSize='small' />
             </IconButton>
         </div>
     )
